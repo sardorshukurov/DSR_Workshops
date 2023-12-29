@@ -1,5 +1,6 @@
 using NetSchool.Api;
 using NetSchool.Api.Configuration;
+using NetSchool.Common.Settings;
 using NetSchool.Services.Logger;
 using NetSchool.Services.Settings;
 using NetSchool.Settings;

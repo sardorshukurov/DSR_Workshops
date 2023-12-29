@@ -1,6 +1,7 @@
-﻿namespace NetSchool.Settings;
+﻿using Microsoft.Extensions.Configuration;
+using NetSchool.Settings;
 
-using Microsoft.Extensions.Configuration;
+namespace NetSchool.Common.Settings;
 
 public abstract class Settings
 {
