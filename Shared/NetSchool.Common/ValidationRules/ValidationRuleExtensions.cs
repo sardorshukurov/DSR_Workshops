@@ -1,6 +1,6 @@
-using FluentValidation;
+﻿namespace NetSchool.Settings;
 
-namespace NetSchool.Common.ValidationRules;
+using FluentValidation;
 
 public static class ValidationRuleExtensions
 {

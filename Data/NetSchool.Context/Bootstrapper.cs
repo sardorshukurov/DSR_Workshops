@@ -1,6 +1,6 @@
 ﻿namespace NetSchool.Context;
 
-using Common.Settings;
+using Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
     

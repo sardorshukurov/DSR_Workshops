@@ -5,17 +5,19 @@
 }
 
 <div>
+    <h1 class="display-4">@(String.IsNullOrEmpty(Model.HelloMessage) ? "NetSchool API" : Model.HelloMessage)</h1>
+
     <div style="margin-bottom: 20px;">
-        <div><a href="/health" style="font-size: 30px">Check health</a></div>
+        <div><a href="/health">Check health</a></div>
 
         @if (Model.OpenApiEnabled)
         {
-            <div><a href="/docs/index.html" style="font-size: 30px">Swagger</a></div>
+            <div><a href="/docs/index.html">Swagger</a></div>
         }
 
-        @*<div><a class="d-block mb-2" href="/.well-known/openid-configuration">OpenId configuration</a></div>*@
+        <div><a class="d-block mb-2" href="@Model.IdentityServerUrl/.well-known/openid-configuration">OpenId configuration</a></div>
     </div>
-    <div style="right: 15px; bottom: 15px; color: navy !important; position: fixed;">
+    <div style="right: 15px; bottom: 15px; color: navy !important; position: absolute;">
         @Model.Version
     </div>
 </div>

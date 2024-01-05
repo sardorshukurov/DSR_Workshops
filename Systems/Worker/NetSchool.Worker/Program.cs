@@ -1,6 +1,6 @@
-using NetSchool.Common.Settings;
 using NetSchool.Services.Logger;
 using NetSchool.Services.Settings;
+using NetSchool.Settings;
 using NetSchool.Worker;
 using NetSchool.Worker.Configuration;
 

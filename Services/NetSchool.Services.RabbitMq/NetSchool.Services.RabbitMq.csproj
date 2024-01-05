@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\NetSchool.Common\NetSchool.Common.csproj" />
-    <ProjectReference Include="..\NetSchool.Services.Settings\NetSchool.Services.Settings.csproj" />
   </ItemGroup>
 
 </Project>

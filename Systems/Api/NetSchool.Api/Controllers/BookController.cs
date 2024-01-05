@@ -1,41 +1,42 @@
+﻿namespace NetSchool.Api.App;
+
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NetSchool.Services.Books.Books;
-using NetSchool.Services.Books.Books.Models;
+using NetSchool.Common.Security;
+using NetSchool.Services.Books;
 using NetSchool.Services.Logger;
 
-namespace NetSchool.Api.Controllers;
-
 [ApiController]
+[Authorize]
 [ApiVersion("1.0")]
 [ApiExplorerSettings(GroupName = "Product")]
 [Route("v{version:apiVersion}/[controller]")]
 public class BookController : ControllerBase
 {
-    private readonly IAppLogger _logger;
-    private readonly IBookService _bookService;
+    private readonly IAppLogger logger;
+    private readonly IBookService bookService;
 
     public BookController(IAppLogger logger, IBookService bookService)
     {
-        _logger = logger;
-        _bookService = bookService;
+        this.logger = logger;
+        this.bookService = bookService;
     }
 
     [HttpGet("")]
-    public async Task<IActionResult> GetAll()
+    [Authorize(AppScopes.BooksRead)]
+    public async Task<IEnumerable<BookModel>> GetAll()
     {
-        var result = await _bookService.GetAll();
-        
-        if (result == null)
-            return NotFound();
-        
-        return Ok(result);
+        var result = await bookService.GetAll();
+
+        return result;
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:Guid}")]
+    [Authorize(AppScopes.BooksRead)]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        var result = await _bookService.GetById(id);
+        var result = await bookService.GetById(id);
 
         if (result == null)
             return NotFound();
@@ -44,22 +45,26 @@ public class BookController : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<BookModel> Create(CreateBookModel model)
+    [Authorize(AppScopes.BooksWrite)]
+    public async Task<BookModel> Create(CreateModel request)
     {
-        var result = await _bookService.Create(model);
+        var result = await bookService.Create(request);
 
         return result;
     }
 
-    [HttpPut("{id:guid}")]
-    public async Task Update([FromRoute] Guid id, UpdateBookModel model)
+    [HttpPut("{id:Guid}")]
+    [Authorize(AppScopes.BooksWrite)]
+    public async Task Update([FromRoute] Guid id, UpdateModel request)
     {
-        await _bookService.Update(id, model);
+        await bookService.Update(id, request);
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpDelete("{id:Guid}")]
+    [Authorize(AppScopes.BooksWrite)]
     public async Task Delete([FromRoute] Guid id)
     {
-        await _bookService.Delete(id);
+        await bookService.Delete(id);
     }
+
 }
